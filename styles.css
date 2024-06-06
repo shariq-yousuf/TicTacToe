@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   padding: 0;
@@ -14,18 +10,20 @@ body {
 }
 
 .container {
-  width: 50vw;
   margin: 0 auto;
-  padding: 10px;
   display: grid;
   grid-template-columns: auto auto auto;
   text-align: center;
-  height: 60dvh;
 }
 
 .item {
   color: white;
-  font-size: 15dvh;
+  width: 9rem;
+  height: 9rem;
+  font-size: 14dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .right-bottom-border {
@@ -42,14 +40,16 @@ body {
 }
 
 @media  screen and (max-width:720px) {
-    .container {
-        width: 80%;
+    .item {
+        width: 100px;
+        height: 100px;
     }
 }
 
 
 @media  screen and (max-width:480px) {
-    .container {
-        width: 100%;
+    .item {
+        width: 80px;
+        height: 80px;
     }
 }
