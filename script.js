@@ -1,34 +1,45 @@
 // const chooseXorO = document.getElementById("choose-XorO");
 
-const board = [];
-const winningConditions = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
-];
+let board = [];
 
 function initiateBoard() {
   for (let i = 0; i < 3; i++) {
-    board.push([]);
-    board[i].push(null, null, null);
+    board.push([null, null, null]);
   }
 }
 initiateBoard();
 
-function placeMarker(row, col, input) {
+function placeMark(row, col, input) {
   board[row].splice(col, 1, input);
 }
 
 function resetBoard() {
+  board = [];
   initiateBoard();
 }
 
-placeMarker(0, 0, "X");
-placeMarker(1, 1, "X");
-placeMarker(2, 2, "X");
+placeMark(0, 2, "X");
+placeMark(1, 1, "X");
+placeMark(2, 0, "X");
 console.log(board);
+
+function checkWinner(board, mark) {
+  for (const row of board) {
+    if (row[0] === mark && row[1] === mark && row[2] === mark) {
+      return true;
+    }
+  }
+  if (
+    (board[0][0] === mark && board[1][0] === mark && board[2][0] === mark) ||
+    (board[0][1] === mark && board[1][1] === mark && board[2][1] === mark) ||
+    (board[0][2] === mark && board[1][2] === mark && board[2][2] === mark) ||
+    (board[0][0] === mark && board[1][1] === mark && board[2][2] === mark) ||
+    (board[0][2] === mark && board[1][1] === mark && board[2][0] === mark)
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+resetBoard();
+console.log(checkWinner(board, "X"));
