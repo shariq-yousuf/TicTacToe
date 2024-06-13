@@ -1,4 +1,5 @@
 const cells = document.querySelectorAll(".cell");
+const board = [];
 const cellRows = {
   0: 0,
   1: 0,
@@ -21,8 +22,8 @@ const cellCols = {
   7: 1,
   8: 2,
 };
-const board = [];
 let currentPlayer = "X";
+let isGameOver = false;
 initiateBoard();
 
 function initiateBoard() {
@@ -44,11 +45,6 @@ function switchPlayer(player) {
   player === "X" ? (currentPlayer = "O") : (currentPlayer = "X");
 }
 
-function resetBoard() {
-  board = [];
-  initiateBoard();
-}
-
 function checkWinner(board, mark) {
   const winningConditions = [
     [board[0][0], board[0][1], board[0][2]],
@@ -67,24 +63,25 @@ function checkWinner(board, mark) {
       condition[1] === mark &&
       condition[2] === mark
     ) {
-      showResult(mark);
+      isGameOver = true;
+      console.log(`${mark} is Winner!`);
     }
   }
 }
 
-function showResult(mark) {
-  console.log(`${mark} is Winner!`);
-}
-
 cells.forEach((cell, index) => {
   cell.addEventListener("click", () => {
-    const row = cellRows[index];
-    const col = cellCols[cell.id];
+    if (!isGameOver) {
+      const row = cellRows[index];
+      const col = cellCols[cell.id];
 
-    cell.textContent = currentPlayer;
-    placeMark(row, col, currentPlayer);
+      cell.textContent = currentPlayer;
+      placeMark(row, col, currentPlayer);
+    }
   });
 });
-// resetBoard();
-// console.log(checkWinner(board, "X"));
-// console.log(showResult("X"));
+
+function resetBoard() {
+  board = [];
+  initiateBoard();
+}
