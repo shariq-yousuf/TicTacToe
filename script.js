@@ -35,6 +35,7 @@ let currentPlayer;
 let isGameStart = false;
 let isGameRunning = false;
 let isGameOver = true;
+let hasWinner = false;
 let cellsFilled = 0;
 
 function initiateBoard() {
@@ -53,15 +54,19 @@ function initiateBoard() {
 
 cellsEl.forEach((cellEl, index) => {
   cellEl.addEventListener("click", () => {
-    if (isGameStart && isGameRunning) {
+    if (isGameStart && isGameRunning && !cellEl.textContent) {
       const row = cellRows[index];
       const col = cellCols[cellEl.id];
 
       cellEl.textContent = currentPlayer;
       placeMark(row, col, currentPlayer);
     } else {
-      statusMsg.textContent = "";
-      errorMsg.textContent = "Start game first!";
+      if (!hasWinner) {
+        statusMsg.textContent = "";
+        errorMsg.textContent = "Start game first!";
+      } else {
+        errorMsg.textContent = "Start new game!";
+      }
     }
   });
 });
@@ -81,22 +86,28 @@ function switchPlayer(player) {
 }
 
 function highlightPlayer() {
+  selectPlayerMsg.style.opacity = "0";
+  statusMsg.style.opacity = "1";
+  errorMsg.textContent = "";
+
   if (currentPlayer === xBtn.textContent) {
-    xBtn.style.borderColor = "blue";
-    xBtn.style.color = "blue";
-    selectPlayerMsg.style.opacity = "0";
-    statusMsg.style.opacity = "1";
     statusMsg.textContent = `${currentPlayer} is playing...`;
-    oBtn.style.borderColor = "black";
-    oBtn.style.color = "black";
+    setBtnColor("X", "blue");
+    setBtnColor("O", "black");
   } else if (currentPlayer === oBtn.textContent) {
-    oBtn.style.borderColor = "blue";
-    oBtn.style.color = "blue";
-    selectPlayerMsg.style.opacity = "0";
-    statusMsg.style.opacity = "1";
     statusMsg.textContent = `${currentPlayer} is playing...`;
-    xBtn.style.borderColor = "black";
-    xBtn.style.color = "black";
+    setBtnColor("O", "blue");
+    setBtnColor("X", "black");
+  }
+}
+
+function setBtnColor(btn, color) {
+  if (btn === "X") {
+    xBtn.style.borderColor = color;
+    xBtn.style.color = color;
+  } else if (btn === "O") {
+    oBtn.style.borderColor = color;
+    oBtn.style.color = color;
   }
 }
 
@@ -140,7 +151,9 @@ function checkWinner(board, mark) {
       isGameRunning = false;
       isGameStart = false;
       statusMsg.textContent = `${mark} is Winner!`;
-      return;
+      hasWinner = true;
+      restartGame();
+      return true;
     }
   }
 
@@ -149,8 +162,19 @@ function checkWinner(board, mark) {
     isGameRunning = false;
     isGameStart = false;
     statusMsg.textContent = "Draw";
-    return;
+    return false;
   }
+}
+
+function restartGame() {
+  setBtnColor("X", "black");
+  setBtnColor("O", "black");
+  startBtn.textContent = "New Game";
+  startBtn.removeAttribute("disabled");
+  startBtn.addEventListener("click", () => {
+    resetBoard();
+    initiateBoard();
+  });
 }
 
 function resetBoard() {
@@ -162,16 +186,15 @@ function resetBoard() {
     cellEl.textContent = "";
   }
 
-  currentPlayer = "X";
+  currentPlayer = "";
   statusMsg.style.opacity = "1";
   statusMsg.textContent = "Ready?";
-  oBtn.style.borderColor = "black";
-  xBtn.style.borderColor = "black";
-  xBtn.style.color = "black";
-  oBtn.style.color = "black";
+  setBtnColor("O", "black");
+  setBtnColor("X", "black");
   isGameOver = true;
   isGameRunning = false;
   isGameStart = false;
+  hasWinner = false;
   startBtn.removeAttribute("disabled");
 }
 
