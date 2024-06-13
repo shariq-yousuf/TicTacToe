@@ -1,4 +1,5 @@
-let board = [];
+const board = [];
+let currentPlayer = "X";
 initiateBoard();
 
 function initiateBoard() {
@@ -8,7 +9,20 @@ function initiateBoard() {
 }
 
 function placeMark(row, col, input) {
-  board[row].splice(col, 1, input);
+  if (board[row][col] === null) {
+    board[row].splice(col, 1, input);
+
+    checkWinner(board, input);
+    switchPlayer(input);
+  }
+}
+
+function switchPlayer(player) {
+  if (player === "X") {
+    currentPlayer = "O";
+  } else if (player === "O") {
+    currentPlayer = "X";
+  }
 }
 
 function resetBoard() {
@@ -16,16 +30,16 @@ function resetBoard() {
   initiateBoard();
 }
 
-placeMark(0, 2, "X");
-placeMark(0, 0, "O");
-placeMark(2, 0, "X");
-placeMark(1, 1, "O");
-placeMark(2, 2, "X");
-placeMark(1, 2, "O");
-placeMark(2, 1, "X");
+placeMark(0, 2, currentPlayer);
+placeMark(0, 0, currentPlayer);
+placeMark(2, 0, currentPlayer);
+placeMark(1, 1, currentPlayer);
+placeMark(2, 2, currentPlayer);
+placeMark(1, 2, currentPlayer);
+placeMark(2, 1, currentPlayer);
 console.log(board);
 
-const checkWinner = (board, mark) => {
+function checkWinner(board, mark) {
   const winningConditions = [
     [board[0][0], board[0][1], board[0][2]],
     [board[1][0], board[1][1], board[1][2]],
@@ -43,19 +57,15 @@ const checkWinner = (board, mark) => {
       condition[1] === mark &&
       condition[2] === mark
     ) {
-      return true;
+      showResult(mark);
     }
   }
+}
 
-  return false;
-};
-
-const showWinner = (mark) => {
-  if (checkWinner(board, mark)) {
-    return `${mark} is Winner!`;
-  }
-};
+function showResult(mark) {
+  console.log(`${mark} is Winner!`);
+}
 
 // resetBoard();
-console.log(checkWinner(board, "X"));
-console.log(showWinner("X"));
+// console.log(checkWinner(board, "X"));
+// console.log(showResult("X"));
