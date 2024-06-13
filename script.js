@@ -1,3 +1,15 @@
+const cells = document.querySelectorAll(".cell");
+const cellRows = {
+  0: 0,
+  1: 0,
+  2: 0,
+  3: 1,
+  4: 1,
+  5: 1,
+  6: 2,
+  7: 2,
+  8: 2,
+};
 const board = [];
 let currentPlayer = "X";
 initiateBoard();
@@ -30,15 +42,6 @@ function resetBoard() {
   initiateBoard();
 }
 
-placeMark(0, 2, currentPlayer);
-placeMark(0, 0, currentPlayer);
-placeMark(2, 0, currentPlayer);
-placeMark(1, 1, currentPlayer);
-placeMark(2, 2, currentPlayer);
-placeMark(1, 2, currentPlayer);
-placeMark(2, 1, currentPlayer);
-console.log(board);
-
 function checkWinner(board, mark) {
   const winningConditions = [
     [board[0][0], board[0][1], board[0][2]],
@@ -66,6 +69,14 @@ function showResult(mark) {
   console.log(`${mark} is Winner!`);
 }
 
+cells.forEach((cell, index) => {
+  cell.addEventListener("click", () => {
+    const row = cellRows[index];
+    const col = cell.id;
+
+    placeMark(row, col, currentPlayer);
+  });
+});
 // resetBoard();
 // console.log(checkWinner(board, "X"));
 // console.log(showResult("X"));
