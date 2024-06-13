@@ -24,6 +24,8 @@ const cellCols = {
 };
 let currentPlayer = "X";
 let isGameOver = false;
+let cellsFilled = 0;
+
 initiateBoard();
 
 function initiateBoard() {
@@ -46,6 +48,8 @@ function switchPlayer(player) {
 }
 
 function checkWinner(board, mark) {
+  cellsFilled++;
+
   const winningConditions = [
     [board[0][0], board[0][1], board[0][2]],
     [board[1][0], board[1][1], board[1][2]],
@@ -64,8 +68,12 @@ function checkWinner(board, mark) {
       condition[2] === mark
     ) {
       isGameOver = true;
-      console.log(`${mark} is Winner!`);
+      return console.log(`${mark} is Winner!`);
     }
+  }
+
+  if (cellsFilled === 9) {
+    return console.log("Draw");
   }
 }
 
