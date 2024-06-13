@@ -10,6 +10,17 @@ const cellRows = {
   7: 2,
   8: 2,
 };
+const cellCols = {
+  0: 0,
+  1: 1,
+  2: 2,
+  3: 0,
+  4: 1,
+  5: 2,
+  6: 0,
+  7: 1,
+  8: 2,
+};
 const board = [];
 let currentPlayer = "X";
 initiateBoard();
@@ -30,11 +41,7 @@ function placeMark(row, col, input) {
 }
 
 function switchPlayer(player) {
-  if (player === "X") {
-    currentPlayer = "O";
-  } else if (player === "O") {
-    currentPlayer = "X";
-  }
+  player === "X" ? (currentPlayer = "O") : (currentPlayer = "X");
 }
 
 function resetBoard() {
@@ -72,7 +79,7 @@ function showResult(mark) {
 cells.forEach((cell, index) => {
   cell.addEventListener("click", () => {
     const row = cellRows[index];
-    const col = cell.id;
+    const col = cellCols[cell.id];
 
     placeMark(row, col, currentPlayer);
   });
