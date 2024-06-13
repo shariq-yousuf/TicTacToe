@@ -81,6 +81,7 @@ cells.forEach((cell, index) => {
     const row = cellRows[index];
     const col = cellCols[cell.id];
 
+    cell.textContent = currentPlayer;
     placeMark(row, col, currentPlayer);
   });
 });
