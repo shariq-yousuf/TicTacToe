@@ -1,23 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: rgb(231, 234, 107);
+}
+
 body {
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100dvh;
   background-color: rgb(0, 0, 0);
+  color: white;
   font-family: Arial, Helvetica, sans-serif;
 }
 
+header {
+  color: var(--primary-color);
+  text-align: center;
+  margin: 20px;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+}
+
 .container {
-  margin: 0 auto;
+  /* background-color: red; */
   display: grid;
   grid-template-columns: auto auto auto;
   text-align: center;
 }
 
 .cell {
-  color: white;
+  color: var(--primary-color);
   width: 9rem;
   height: 9rem;
   font-size: 14dvh;
@@ -28,16 +48,84 @@ body {
 }
 
 .right-bottom-border {
-  border-right: 10px solid white;
-  border-bottom: 10px solid white;
+  border-right: 10px solid var(--primary-color);
+  border-bottom: 10px solid var(--primary-color);
 }
 
 .right-border {
-  border-right: 10px solid white;
+  border-right: 10px solid var(--primary-color);
 }
 
 .bottom-border {
-  border-bottom: 10px solid white;
+  border-bottom: 10px solid var(--primary-color);
+}
+
+#display {
+  background-color: var(--primary-color);
+  min-height: 40dvh;
+  min-width: 30dvw;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn {
+  width: 40%;
+  padding: 10px 0px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  background-color: transparent;
+  border: 3px solid;
+  margin-bottom: 5px;
+}
+
+#start-btn {
+  border-color: green;
+  color: green;
+}
+
+#start-btn:hover {
+  background-color: green;
+  color: white;
+}
+
+#reset-btn {
+  border-color: red;
+  color: red;
+}
+
+#reset-btn:hover {
+  background-color: red;
+  color: white;
+}
+
+#select-player-msg {
+  text-align: center;
+  margin: 8px;
+  color: green;
+  font-weight: bold;
+}
+
+#X-btn:hover,
+#O-btn:hover {
+  border-color: green;
+  color: green;
+}
+
+.status-container {
+  color: green;
+  border-radius: 10px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10dvh;
+  font-size: 2rem;
 }
 
 @media screen and (max-width: 720px) {

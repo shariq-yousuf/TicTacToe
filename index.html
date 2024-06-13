@@ -7,23 +7,37 @@
     <title>TicTacToe</title>
   </head>
   <body>
-    <div class="container">
-      <div id="0" class="cell right-bottom-border"></div>
-      <div id="1" class="cell right-bottom-border"></div>
-      <div id="2" class="cell bottom-border"></div>
-      <div id="3" class="cell right-bottom-border"></div>
-      <div id="4" class="cell right-bottom-border"></div>
-      <div id="5" class="cell bottom-border"></div>
-      <div id="6" class="cell right-border"></div>
-      <div id="7" class="cell right-border"></div>
-      <div id="8" class="cell"></div>
-    </div>
-    <!-- <div id="control">
-        <select name="" id="choose-mark">
-            <option value="x">X</option>
-            <option value="o">O</option>
-        </select>
-    </div> -->
+    <header>
+      <h1>TicTacToe</h1>
+      <p>Challenge accepted? Let's play Tic Tac Toe!</p>
+    </header>
+    <main>
+      <div class="container">
+        <div id="0" class="cell right-bottom-border"></div>
+        <div id="1" class="cell right-bottom-border"></div>
+        <div id="2" class="cell bottom-border"></div>
+        <div id="3" class="cell right-bottom-border"></div>
+        <div id="4" class="cell right-bottom-border"></div>
+        <div id="5" class="cell bottom-border"></div>
+        <div id="6" class="cell right-border"></div>
+        <div id="7" class="cell right-border"></div>
+        <div id="8" class="cell"></div>
+      </div>
+      <div id="display">
+        <div class="btn-container">
+          <button id="start-btn" class="btn">Start Game</button>
+          <button id="reset-btn" class="btn">Reset Board</button>
+        </div>
+        <p id="select-player-msg">Now! Select your mark!</p>
+        <div class="btn-container">
+          <button id="X-btn" class="btn">X</button>
+          <button id="O-btn" class="btn">O</button>
+        </div>
+        <div class="status-container">
+          <div id="status">X is Playing...</div>
+        </div>
+      </div>
+    </main>
 
     <script src="script.js"></script>
   </body>
