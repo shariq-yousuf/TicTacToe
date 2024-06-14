@@ -31,6 +31,7 @@ const oBtn = document.getElementById("O-btn");
 const selectPlayerMsg = document.getElementById("select-player-msg");
 const statusMsg = document.getElementById("status");
 const errorMsg = document.getElementById("error-msg");
+const headMsg = document.getElementById("head-msg");
 let currentPlayer;
 let isGameStart = false;
 let isGameRunning = false;

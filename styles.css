@@ -143,6 +143,7 @@ main {
   .cell {
     width: 100px;
     height: 100px;
+    font-size: 12dvh;
   }
 }
 
@@ -150,5 +151,6 @@ main {
   .cell {
     width: 80px;
     height: 80px;
+    font-size: 10dvh;
   }
 }
