@@ -10,27 +10,33 @@ body {
   margin: 0;
   padding: 0;
   height: 100dvh;
+  overflow: hidden;
   background-color: rgb(0, 0, 0);
-  /* color: white; */
   font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 header {
   color: var(--primary-color);
   text-align: center;
-  margin: 20px;
+}
+
+header * {
+  margin: 5px;
 }
 
 main {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 }
 
 .container {
-  /* background-color: red; */
+  background-color: red;
   display: grid;
   grid-template-columns: auto auto auto;
   text-align: center;
@@ -62,10 +68,13 @@ main {
 
 #display {
   background-color: var(--primary-color);
-  min-height: 40dvh;
+  max-height: 40dvh;
   min-width: 30dvw;
   padding: 20px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .btn-container {
@@ -112,13 +121,13 @@ main {
   opacity: 0;
   transition: opacity 0.7s;
 }
+
 .hover-effect:hover,
 .hover-effect:hover {
   background-color: rgb(234, 238, 32);
 }
 
 .status-container {
-  margin: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -137,20 +146,33 @@ main {
   color: red;
   font-size: 1rem;
   font-weight: bold;
+  margin: 0;
 }
 
 @media screen and (max-width: 720px) {
   .cell {
-    width: 100px;
-    height: 100px;
-    font-size: 12dvh;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .cell {
     width: 80px;
     height: 80px;
     font-size: 10dvh;
+  }
+
+  #display {
+    padding: 15px 20px;
+  }
+
+  #status {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    padding: 5px 0;
+  }
+
+  #select-player-msg {
+    margin: 0;
+  }
+
+  .status-container {
+    height: auto;
   }
 }
