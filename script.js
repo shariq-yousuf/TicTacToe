@@ -32,6 +32,8 @@ const selectPlayerMsg = document.getElementById("select-player-msg");
 const statusMsg = document.getElementById("status");
 const errorMsg = document.getElementById("error-msg");
 const headMsg = document.getElementById("head-msg");
+let marker;
+let players = ["Your", "AI"];
 let currentPlayer;
 let isGameStart = false;
 let isGameRunning = false;
@@ -62,11 +64,11 @@ cellsEl.forEach((cellEl, index) => {
       const row = cellRows[index];
       const col = cellCols[cellEl.id];
 
-      cellEl.textContent = currentPlayer;
-      placeMark(row, col, currentPlayer);
+      cellEl.textContent = marker;
+      placeMark(row, col, marker);
 
       if (!hasWinner) {
-        setTimeout(computerMove, 1000);
+        setTimeout(computerMove, 1300);
       }
     } else {
       if (!hasWinner && !isGameStart) {
@@ -99,15 +101,18 @@ function computerMove() {
   const col = cellCols[randomCellID];
 
   if (board[row][col] === null && !randomCell.textContent) {
-    randomCell.textContent = currentPlayer;
-    placeMark(row, col, currentPlayer);
+    randomCell.textContent = marker;
+    placeMark(row, col, marker);
   } else {
     computerMove();
   }
 }
 
-function switchPlayer(player) {
-  player === "X" ? (currentPlayer = "O") : (currentPlayer = "X");
+function switchPlayer(mark) {
+  mark === "X" ? (marker = "O") : (marker = "X");
+  currentPlayer === players[0]
+    ? (currentPlayer = players[1])
+    : (currentPlayer = players[0]);
   highlightPlayer();
 }
 
@@ -115,13 +120,12 @@ function highlightPlayer() {
   selectPlayerMsg.style.opacity = "0";
   statusMsg.style.opacity = "1";
   errorMsg.textContent = "";
+  statusMsg.textContent = `${currentPlayer}'s turn!`;
 
-  if (currentPlayer === xBtn.textContent) {
-    statusMsg.textContent = `${currentPlayer}'s turn!`;
+  if (marker === xBtn.textContent) {
     setBtnColor(xBtn, "blue");
     setBtnColor(oBtn, "black");
-  } else if (currentPlayer === oBtn.textContent) {
-    statusMsg.textContent = `${currentPlayer}'s turn!`;
+  } else if (marker === oBtn.textContent) {
     setBtnColor(oBtn, "blue");
     setBtnColor(xBtn, "black");
   }
@@ -171,7 +175,7 @@ function checkWinner(board, mark) {
       isGameOver = true;
       isGameRunning = false;
       isGameStart = false;
-      statusMsg.textContent = `Congrats! Nice win, ${mark}!`;
+      statusMsg.textContent = currentPlayer === players[1] ? `Congrats! You won!` : "You lost! Play again?";
       hasWinner = true;
       restartGame();
       return true;
@@ -208,7 +212,8 @@ function resetBoard() {
     cellEl.textContent = "";
   }
 
-  currentPlayer = "";
+  marker = "";
+  // currentPlayer = "";
   statusMsg.style.opacity = "1";
   statusMsg.textContent = "Ready?";
   setBtnColor(oBtn, "black");
@@ -228,7 +233,8 @@ xBtn.addEventListener("click", () => {
   if (isGameStart && !isGameRunning) {
     xBtn.classList.remove("hover-effect");
     oBtn.classList.remove("hover-effect");
-    currentPlayer = xBtn.textContent;
+    marker = xBtn.textContent;
+    currentPlayer = players[0];
     isGameRunning = true;
     highlightPlayer();
   }
@@ -237,7 +243,8 @@ oBtn.addEventListener("click", () => {
   if (isGameStart && !isGameRunning) {
     oBtn.classList.remove("hover-effect");
     xBtn.classList.remove("hover-effect");
-    currentPlayer = oBtn.textContent;
+    marker = oBtn.textContent;
+    currentPlayer = players[0];
     isGameRunning = true;
     highlightPlayer();
   }
