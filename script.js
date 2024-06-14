@@ -98,11 +98,11 @@ function highlightPlayer() {
   errorMsg.textContent = "";
 
   if (currentPlayer === xBtn.textContent) {
-    statusMsg.textContent = `${currentPlayer} is playing...`;
+    statusMsg.textContent = `${currentPlayer}'s turn!`;
     setBtnColor(xBtn, "blue");
     setBtnColor(oBtn, "black");
   } else if (currentPlayer === oBtn.textContent) {
-    statusMsg.textContent = `${currentPlayer} is playing...`;
+    statusMsg.textContent = `${currentPlayer}'s turn!`;
     setBtnColor(oBtn, "blue");
     setBtnColor(xBtn, "black");
   }
@@ -152,7 +152,7 @@ function checkWinner(board, mark) {
       isGameOver = true;
       isGameRunning = false;
       isGameStart = false;
-      statusMsg.textContent = `${mark} is Winner!`;
+      statusMsg.textContent = `Congrats! Nice win, ${mark}!`;
       hasWinner = true;
       restartGame();
       return true;
@@ -163,7 +163,8 @@ function checkWinner(board, mark) {
     isGameOver = true;
     isGameRunning = false;
     isGameStart = false;
-    statusMsg.textContent = "Draw";
+    statusMsg.textContent = "It's a draw! Play again?";
+    restartGame();
     return false;
   }
 }
