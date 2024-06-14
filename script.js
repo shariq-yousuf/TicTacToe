@@ -65,7 +65,7 @@ cellsEl.forEach((cellEl, index) => {
       cellEl.textContent = currentPlayer;
       placeMark(row, col, currentPlayer);
 
-      if (!hasWinner) {    
+      if (!hasWinner) {
         setTimeout(computerMove, 1000);
       }
     } else {
@@ -84,7 +84,8 @@ cellsEl.forEach((cellEl, index) => {
 
 function placeMark(row, col, input) {
   if (board[row][col] === null) {
-    board[row].splice(col, 1, input);
+    // board[row].splice(col, 1, input);
+    board[row][col] = input;
 
     switchPlayer(input);
     checkWinner(board, input);
