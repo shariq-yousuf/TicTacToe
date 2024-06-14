@@ -64,6 +64,8 @@ cellsEl.forEach((cellEl, index) => {
 
       cellEl.textContent = currentPlayer;
       placeMark(row, col, currentPlayer);
+
+      setTimeout(computerMove, 1000);
     } else {
       if (!hasWinner && !isGameStart) {
         statusMsg.textContent = "";
@@ -71,7 +73,7 @@ cellsEl.forEach((cellEl, index) => {
       } else if (!hasWinner && !isGameRunning) {
         statusMsg.textContent = "";
         errorMsg.textContent = "Select your mark!";
-      } else {
+      } else if (hasWinner) {
         errorMsg.textContent = "Start new game!";
       }
     }
@@ -84,6 +86,20 @@ function placeMark(row, col, input) {
 
     switchPlayer(input);
     checkWinner(board, input);
+  }
+}
+
+function computerMove() {
+  const randomCellID = Math.floor(Math.random() * 9);
+  const randomCell = document.getElementById(randomCellID);
+  const row = cellRows[randomCellID];
+  const col = cellCols[randomCellID];
+
+  if (board[row][col] === null && !randomCell.textContent) {
+    randomCell.textContent = currentPlayer;
+    placeMark(row, col, currentPlayer);
+  } else {
+    computerMove();
   }
 }
 
