@@ -36,11 +36,12 @@ let isGameStart = false;
 let isGameRunning = false;
 let isGameOver = true;
 let hasWinner = false;
-let cellsFilled = 0;
+let cellsFilled;
 
 function initiateBoard() {
   isGameStart = true;
   isGameOver = false;
+  cellsFilled = 0;
 
   for (let i = 0; i < 3; i++) {
     board.push([null, null, null]);
@@ -61,9 +62,12 @@ cellsEl.forEach((cellEl, index) => {
       cellEl.textContent = currentPlayer;
       placeMark(row, col, currentPlayer);
     } else {
-      if (!hasWinner) {
+      if (!hasWinner && !isGameStart) {
         statusMsg.textContent = "";
         errorMsg.textContent = "Start game first!";
+      } else if (!hasWinner && !isGameRunning) {
+        statusMsg.textContent = "";
+        errorMsg.textContent = "Select your mark!";
       } else {
         errorMsg.textContent = "Start new game!";
       }
