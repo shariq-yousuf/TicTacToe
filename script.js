@@ -197,6 +197,8 @@ function resetBoard() {
   isGameStart = false;
   hasWinner = false;
   startBtn.removeAttribute("disabled");
+  xBtn.classList.remove("hover-effect");
+  oBtn.classList.remove("hover-effect");
 }
 
 startBtn.addEventListener("click", initiateBoard);
@@ -204,6 +206,7 @@ resetBtn.addEventListener("click", resetBoard);
 xBtn.addEventListener("click", () => {
   if (isGameStart && !isGameRunning) {
     xBtn.classList.remove("hover-effect");
+    oBtn.classList.remove("hover-effect");
     currentPlayer = xBtn.textContent;
     isGameRunning = true;
     highlightPlayer();
@@ -212,6 +215,7 @@ xBtn.addEventListener("click", () => {
 oBtn.addEventListener("click", () => {
   if (isGameStart && !isGameRunning) {
     oBtn.classList.remove("hover-effect");
+    xBtn.classList.remove("hover-effect");
     currentPlayer = oBtn.textContent;
     isGameRunning = true;
     highlightPlayer();
