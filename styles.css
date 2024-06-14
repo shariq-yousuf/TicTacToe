@@ -43,8 +43,8 @@ main {
 
 .cell {
   color: var(--primary-color);
-  width: 9rem;
-  height: 9rem;
+  width: 8rem;
+  height: 8rem;
   font-size: 14dvh;
   display: flex;
   justify-content: center;
@@ -67,7 +67,7 @@ main {
 
 #display {
   background-color: var(--primary-color);
-  max-height: 40dvh;
+  height: 50dvh;
   width: 30dvw;
   padding: 20px;
   border-radius: 10px;
@@ -131,7 +131,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 10dvh;
+  height: 20dvh;
 }
 
 #status {
@@ -157,7 +157,8 @@ main {
 
   #display {
     padding: 15px 20px;
-    width: 70dvw;
+    width: 90dvw;
+    height: 40dvh;
   }
 
   #status {
@@ -169,6 +170,6 @@ main {
   }
 
   .status-container {
-    height: auto;
+    height: 20dvh;
   }
 }
