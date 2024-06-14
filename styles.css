@@ -32,7 +32,7 @@ main {
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 
 .container {
@@ -68,7 +68,7 @@ main {
 #display {
   background-color: var(--primary-color);
   max-height: 40dvh;
-  min-width: 30dvw;
+  width: 30dvw;
   padding: 20px;
   border-radius: 10px;
   display: flex;
@@ -157,6 +157,7 @@ main {
 
   #display {
     padding: 15px 20px;
+    width: 70dvw;
   }
 
   #status {
@@ -165,10 +166,6 @@ main {
 
   .btn {
     padding: 5px 0;
-  }
-
-  #select-player-msg {
-    margin: 0;
   }
 
   .status-container {

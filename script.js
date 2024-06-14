@@ -65,7 +65,9 @@ cellsEl.forEach((cellEl, index) => {
       cellEl.textContent = currentPlayer;
       placeMark(row, col, currentPlayer);
 
-      setTimeout(computerMove, 1000);
+      if (!hasWinner) {    
+        setTimeout(computerMove, 1000);
+      }
     } else {
       if (!hasWinner && !isGameStart) {
         statusMsg.textContent = "";
