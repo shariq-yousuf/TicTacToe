@@ -11,7 +11,7 @@ body {
   padding: 0;
   height: 100dvh;
   background-color: rgb(0, 0, 0);
-  color: white;
+  /* color: white; */
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -112,11 +112,9 @@ main {
   opacity: 0;
   transition: opacity 0.7s;
 }
-
-#X-btn:hover,
-#O-btn:hover {
-  border-color: green;
-  color: green;
+.hover-effect:hover,
+.hover-effect:hover {
+  background-color: rgb(234, 238, 32);
 }
 
 .status-container {

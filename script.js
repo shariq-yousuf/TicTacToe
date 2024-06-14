@@ -51,6 +51,8 @@ function initiateBoard() {
   statusMsg.style.opacity = "0";
   errorMsg.textContent = "";
   startBtn.setAttribute("disabled", "disabled");
+  xBtn.classList.add("hover-effect");
+  oBtn.classList.add("hover-effect");
 }
 
 cellsEl.forEach((cellEl, index) => {
@@ -96,23 +98,18 @@ function highlightPlayer() {
 
   if (currentPlayer === xBtn.textContent) {
     statusMsg.textContent = `${currentPlayer} is playing...`;
-    setBtnColor("X", "blue");
-    setBtnColor("O", "black");
+    setBtnColor(xBtn, "blue");
+    setBtnColor(oBtn, "black");
   } else if (currentPlayer === oBtn.textContent) {
     statusMsg.textContent = `${currentPlayer} is playing...`;
-    setBtnColor("O", "blue");
-    setBtnColor("X", "black");
+    setBtnColor(oBtn, "blue");
+    setBtnColor(xBtn, "black");
   }
 }
 
 function setBtnColor(btn, color) {
-  if (btn === "X") {
-    xBtn.style.borderColor = color;
-    xBtn.style.color = color;
-  } else if (btn === "O") {
-    oBtn.style.borderColor = color;
-    oBtn.style.color = color;
-  }
+  btn.style.color = color;
+  btn.style.borderColor = color;
 }
 
 function update() {
@@ -171,8 +168,8 @@ function checkWinner(board, mark) {
 }
 
 function restartGame() {
-  setBtnColor("X", "black");
-  setBtnColor("O", "black");
+  setBtnColor(xBtn, "black");
+  setBtnColor(oBtn, "black");
   startBtn.textContent = "New Game";
   startBtn.removeAttribute("disabled");
   startBtn.addEventListener("click", () => {
@@ -193,8 +190,8 @@ function resetBoard() {
   currentPlayer = "";
   statusMsg.style.opacity = "1";
   statusMsg.textContent = "Ready?";
-  setBtnColor("O", "black");
-  setBtnColor("X", "black");
+  setBtnColor(oBtn, "black");
+  setBtnColor(xBtn, "black");
   isGameOver = true;
   isGameRunning = false;
   isGameStart = false;
@@ -206,6 +203,7 @@ startBtn.addEventListener("click", initiateBoard);
 resetBtn.addEventListener("click", resetBoard);
 xBtn.addEventListener("click", () => {
   if (isGameStart && !isGameRunning) {
+    xBtn.classList.remove("hover-effect");
     currentPlayer = xBtn.textContent;
     isGameRunning = true;
     highlightPlayer();
@@ -213,6 +211,7 @@ xBtn.addEventListener("click", () => {
 });
 oBtn.addEventListener("click", () => {
   if (isGameStart && !isGameRunning) {
+    oBtn.classList.remove("hover-effect");
     currentPlayer = oBtn.textContent;
     isGameRunning = true;
     highlightPlayer();
