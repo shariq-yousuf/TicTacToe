@@ -3,7 +3,7 @@
 A simple and fun implementation of the classic Tic Tac Toe game.
 
 Play live! <br>
-<a href="https://shariq-yousuf.github.io/TicTacToe/">TicTacToe</a>
+<a target="_blank" href="https://shariq-yousuf.github.io/TicTacToe/">TicTacToe</a>
 
 ## Features
 

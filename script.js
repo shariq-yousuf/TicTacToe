@@ -32,6 +32,10 @@ const selectPlayerMsg = document.getElementById("select-player-msg");
 const statusMsg = document.getElementById("status");
 const errorMsg = document.getElementById("error-msg");
 const headMsg = document.getElementById("head-msg");
+const youWinCountEl = document.getElementById("you-count");
+let youWinCount = 0;
+const aiWinCountEl = document.getElementById("ai-count");
+let aiWinCount = 0;
 let marker;
 let players = ["Your", "AI's"];
 let currentPlayer;
@@ -177,11 +181,15 @@ function checkWinner(board, mark) {
       isGameRunning = false;
       isGameStart = false;
       if (currentPlayer === players[1]) {
-        statusMsg.textContent = "Congrats! You won!";
         statusMsg.style.color = "green";
+        statusMsg.textContent = "Congrats! You won!";
+        youWinCount++;
+        youWinCountEl.textContent = youWinCount;
       } else {
-        statusMsg.textContent = "You lost! Play again?";
         statusMsg.style.color = "red";
+        statusMsg.textContent = "You lost! Play again?";
+        aiWinCount++;
+        aiWinCountEl = aiWinCount;
       }
       hasWinner = true;
       restartGame();
