@@ -42,6 +42,7 @@ let currentPlayer;
 let isGameStart = false;
 let isGameRunning = false;
 let isGameOver = true;
+let isAiPlaying = false
 let hasWinner = false;
 let cellsFilled;
 
@@ -72,13 +73,13 @@ cellsEl.forEach((cellEl, index) => {
       placeMark(row, col, marker);
 
       if (!hasWinner) {
-        setTimeout(computerMove, 1300);
+        setTimeout(computerMove, 1200);
       }
     } else {
       if (!hasWinner && !isGameStart) {
         statusMsg.textContent = "";
         errorMsg.textContent = "Start game first!";
-      } else if (!hasWinner && !isGameRunning) {
+      } else if (!hasWinner && !isGameRunning && !isAiPlaying) {
         statusMsg.textContent = "";
         errorMsg.textContent = "Select your mark!";
       } else if (hasWinner) {
@@ -189,7 +190,7 @@ function checkWinner(board, mark) {
         statusMsg.style.color = "red";
         statusMsg.textContent = "You lost! Play again?";
         aiWinCount++;
-        aiWinCountEl = aiWinCount;
+        aiWinCountEl.textContent = aiWinCount;
       }
       hasWinner = true;
       restartGame();
@@ -237,6 +238,7 @@ function resetBoard() {
   isGameOver = true;
   isGameRunning = false;
   isGameStart = false;
+  isAiPlaying = false
   hasWinner = false;
   startBtn.removeAttribute("disabled");
   xBtn.classList.remove("hover-effect");
@@ -259,9 +261,11 @@ oBtn.addEventListener("click", () => {
   if (isGameStart && !isGameRunning) {
     oBtn.classList.remove("hover-effect");
     xBtn.classList.remove("hover-effect");
-    marker = oBtn.textContent;
-    currentPlayer = players[0];
-    isGameRunning = true;
+    marker = xBtn.textContent;
+    currentPlayer = players[1];
+    isAiPlaying = true
+    setTimeout(computerMove, 1000)
+    setTimeout(() => isGameRunning = true, 1100)
     highlightPlayer();
   }
 });
