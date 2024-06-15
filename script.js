@@ -33,7 +33,7 @@ const statusMsg = document.getElementById("status");
 const errorMsg = document.getElementById("error-msg");
 const headMsg = document.getElementById("head-msg");
 let marker;
-let players = ["Your", "AI"];
+let players = ["Your", "AI's"];
 let currentPlayer;
 let isGameStart = false;
 let isGameRunning = false;
@@ -120,7 +120,8 @@ function highlightPlayer() {
   selectPlayerMsg.style.opacity = "0";
   statusMsg.style.opacity = "1";
   errorMsg.textContent = "";
-  statusMsg.textContent = `${currentPlayer}'s turn!`;
+  statusMsg.textContent = `${currentPlayer} turn!`;
+  statusMsg.style.color = "blue";
 
   if (marker === xBtn.textContent) {
     setBtnColor(xBtn, "blue");
@@ -175,7 +176,13 @@ function checkWinner(board, mark) {
       isGameOver = true;
       isGameRunning = false;
       isGameStart = false;
-      statusMsg.textContent = currentPlayer === players[1] ? `Congrats! You won!` : "You lost! Play again?";
+      if (currentPlayer === players[1]) {
+        statusMsg.textContent = "Congrats! You won!";
+        statusMsg.style.color = "green";
+      } else {
+        statusMsg.textContent = "You lost! Play again?";
+        statusMsg.style.color = "red";
+      }
       hasWinner = true;
       restartGame();
       return true;
@@ -216,6 +223,7 @@ function resetBoard() {
   // currentPlayer = "";
   statusMsg.style.opacity = "1";
   statusMsg.textContent = "Ready?";
+  statusMsg.style.color = "green";
   setBtnColor(oBtn, "black");
   setBtnColor(xBtn, "black");
   isGameOver = true;
