@@ -16,6 +16,7 @@ Play live! <br>
 
 - Players: You can play with two players (one with Xs and one with Os) or against a computer (AI).
 - Turns: Players take turns marking an empty square on the grid with their chosen symbol.
+- Turn Order: X Always makes the First Move!
 - Winning: The first player to get three of their marks in a row wins.
 - Tie: If all the squares are filled and no player has three in a row, the game ends in a tie.
 
