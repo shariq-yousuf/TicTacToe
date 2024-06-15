@@ -15,6 +15,10 @@
     <header>
       <h1>TicTacToe</h1>
       <p id="head-msg">Challenge accepted? Let's play Tic Tac Toe with AI!</p>
+      <select name="opponent" id="opponent">
+        <option value="ai">vs AI</option>
+        <option value="friend">with Friend</option>
+      </select>
     </header>
     <main>
       <div class="container">
@@ -39,8 +43,13 @@
           <button id="O-btn" class="btn">O</button>
         </div>
         <div id="winnig-count">
-          <span id="you">You : <span id="you-count">0</span></span>
-          <span id="AI"> AI : <span id="ai-count">0</span></span>
+          <span id="you"
+            ><span id="winner-you">You</span> :
+            <span id="you-count">0</span></span
+          >
+          <span id="AI"
+            ><span id="winner-ai">AI</span> : <span id="ai-count">0</span></span
+          >
         </div>
         <div class="status-container">
           <div id="status">Ready?</div>

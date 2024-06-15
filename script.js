@@ -36,15 +36,20 @@ const youWinCountEl = document.getElementById("you-count");
 let youWinCount = 0;
 const aiWinCountEl = document.getElementById("ai-count");
 let aiWinCount = 0;
+const playingVs = document.getElementById("opponent");
+const winnerYou = document.getElementById("winner-you");
+const winnerAi = document.getElementById("winner-ai");
 let marker;
-let players = ["Your", "AI's"];
+let players = ["Your", "AI", "X", "O"];
 let currentPlayer;
 let isGameStart = false;
 let isGameRunning = false;
 let isGameOver = true;
-let isAiPlaying = false
+let isAiPlaying = false;
 let hasWinner = false;
 let cellsFilled;
+let isOpponentFriend = false;
+let PLAYER;
 
 function initiateBoard() {
   isGameStart = true;
@@ -63,6 +68,18 @@ function initiateBoard() {
   oBtn.classList.add("hover-effect");
 }
 
+function selectOpponent() {
+  if (playingVs.value === "friend") {
+    isOpponentFriend = true;
+    winnerYou.textContent = "X";
+    winnerAi.textContent = "O";
+  } else {
+    isOpponentFriend = false;
+    winnerYou.textContent = "You";
+    winnerAi.textContent = "AI";
+  }
+}
+
 cellsEl.forEach((cellEl, index) => {
   cellEl.addEventListener("click", () => {
     if (isGameStart && isGameRunning && !cellEl.textContent) {
@@ -72,7 +89,7 @@ cellsEl.forEach((cellEl, index) => {
       cellEl.textContent = marker;
       placeMark(row, col, marker);
 
-      if (!hasWinner) {
+      if (!hasWinner && !isOpponentFriend) {
         setTimeout(computerMove, 1200);
       }
     } else {
@@ -94,6 +111,7 @@ function placeMark(row, col, input) {
     // board[row].splice(col, 1, input);
     board[row][col] = input;
 
+    PLAYER = currentPlayer;
     switchPlayer(input);
     checkWinner(board, input);
   }
@@ -115,18 +133,32 @@ function computerMove() {
 
 function switchPlayer(mark) {
   mark === "X" ? (marker = "O") : (marker = "X");
-  currentPlayer === players[0]
-    ? (currentPlayer = players[1])
-    : (currentPlayer = players[0]);
+
+  if (!isOpponentFriend) {
+    currentPlayer === players[0]
+      ? (currentPlayer = players[1])
+      : (currentPlayer = players[0]);
+  } else {
+    currentPlayer === players[2]
+      ? (currentPlayer = players[3])
+      : (currentPlayer = players[2]);
+  }
+
   highlightPlayer();
+
+  return currentPlayer;
 }
 
 function highlightPlayer() {
   selectPlayerMsg.style.opacity = "0";
   statusMsg.style.opacity = "1";
   errorMsg.textContent = "";
-  statusMsg.textContent = `${currentPlayer} turn!`;
+  statusMsg.textContent =
+    currentPlayer === "Your"
+      ? `${currentPlayer} turn!`
+      : `${currentPlayer}'s turn!`;
   statusMsg.style.color = "blue";
+  statusMsg.style.fontSize = "1.8rem";
 
   if (marker === xBtn.textContent) {
     setBtnColor(xBtn, "blue");
@@ -181,16 +213,28 @@ function checkWinner(board, mark) {
       isGameOver = true;
       isGameRunning = false;
       isGameStart = false;
-      if (currentPlayer === players[1]) {
-        statusMsg.style.color = "green";
-        statusMsg.textContent = "Congrats! You won!";
-        youWinCount++;
-        youWinCountEl.textContent = youWinCount;
+      if (!isOpponentFriend) {
+        if (currentPlayer === players[1]) {
+          statusMsg.style.color = "green";
+          statusMsg.textContent = "Congrats! You won!";
+          youWinCount++;
+          youWinCountEl.textContent = youWinCount;
+        } else {
+          statusMsg.style.color = "red";
+          statusMsg.textContent = "You lost! Play again?";
+          aiWinCount++;
+          aiWinCountEl.textContent = aiWinCount;
+        }
       } else {
-        statusMsg.style.color = "red";
-        statusMsg.textContent = "You lost! Play again?";
-        aiWinCount++;
-        aiWinCountEl.textContent = aiWinCount;
+        statusMsg.style.color = "green";
+        statusMsg.textContent = `Congrats! ${PLAYER} won!`;
+        if (currentPlayer === players[3]) {
+          youWinCount++;
+          youWinCountEl.textContent = youWinCount;
+        } else {
+          aiWinCount++;
+          aiWinCountEl.textContent = aiWinCount;
+        }
       }
       hasWinner = true;
       restartGame();
@@ -238,7 +282,7 @@ function resetBoard() {
   isGameOver = true;
   isGameRunning = false;
   isGameStart = false;
-  isAiPlaying = false
+  isAiPlaying = false;
   hasWinner = false;
   startBtn.removeAttribute("disabled");
   xBtn.classList.remove("hover-effect");
@@ -247,25 +291,52 @@ function resetBoard() {
 
 startBtn.addEventListener("click", initiateBoard);
 resetBtn.addEventListener("click", resetBoard);
+
+playingVs.addEventListener("change", () => {
+  resetBoard();
+  youWinCount = 0;
+  aiWinCount = 0;
+  youWinCountEl.textContent = youWinCount;
+  aiWinCountEl.textContent = aiWinCount;
+  selectOpponent();
+});
+
 xBtn.addEventListener("click", () => {
   if (isGameStart && !isGameRunning) {
     xBtn.classList.remove("hover-effect");
     oBtn.classList.remove("hover-effect");
     marker = xBtn.textContent;
-    currentPlayer = players[0];
     isGameRunning = true;
+
+    if (!isOpponentFriend) {
+      currentPlayer = players[0];
+    } else {
+      currentPlayer = players[2];
+    }
+
     highlightPlayer();
   }
 });
+
 oBtn.addEventListener("click", () => {
   if (isGameStart && !isGameRunning) {
     oBtn.classList.remove("hover-effect");
     xBtn.classList.remove("hover-effect");
-    marker = xBtn.textContent;
-    currentPlayer = players[1];
-    isAiPlaying = true
-    setTimeout(computerMove, 1000)
-    setTimeout(() => isGameRunning = true, 1100)
-    highlightPlayer();
+
+    if (!isOpponentFriend) {
+      marker = xBtn.textContent;
+      currentPlayer = players[1];
+      isAiPlaying = true;
+      setTimeout(computerMove, 1000);
+      setTimeout(() => (isGameRunning = true), 1100);
+      highlightPlayer();
+    } else {
+      marker = xBtn.textContent;
+      currentPlayer = players[2];
+      isGameRunning = true;
+      highlightPlayer();
+      statusMsg.textContent = "X's turn, X goes first!";
+      statusMsg.style.fontSize = "1.4rem";
+    }
   }
 });

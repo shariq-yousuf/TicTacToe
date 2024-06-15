@@ -27,6 +27,24 @@ header * {
   margin: 5px;
 }
 
+#opponent {
+  background-color: transparent;
+  color: orange;
+  min-width: 10dvw;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+#opponent option {
+  color: orange;
+  background-color: black;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
 main {
   display: flex;
   flex-wrap: wrap;
